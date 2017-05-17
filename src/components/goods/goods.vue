@@ -2,15 +2,15 @@
   <div class="goods">
        <div class="sidebar" ref="menuWrapper">
           <ul>
-            <li v-for="(item,index) in goods">
+            <li v-for="(item,index) in goods" class="menu-item" @click="selectMenu(index,$event)">
               <!--<a href="">{{item.name}}</a>-->
-              <a href="">{{item.name}}</a>
+              {{item.name}}
             </li>
           </ul>
        </div>
        <div class="goods-content" ref="foodsWrapper">
            <ul>
-              <li v-for="(good,index) in goods">
+              <li v-for="(good,index) in goods" class="food-item">
                   <p class="food-title">{{good.name}}</p>
                   <ul class="toggle">
                       <li v-for="food in good.foods" @click="showDetail">
@@ -56,6 +56,7 @@
 
 <script type="text/ecmascript-6">
   import cartContrl from '../cartContrl/cartContrl'
+  import BScroll from 'better-scroll'
   export default {
     name: 'goods',
     props: {
@@ -81,10 +82,37 @@
         this.foodShow = true
       },
       incrementTotal (price) {
+//          根据点击添加菜单总价格
         this.totalPrice += price
       },
       decrease (price) {
         this.totalPrice -= price
+      },
+      _initScroll () {
+//        设置菜单栏滚动
+        this.menuScroll = new BScroll(this.$refs.menuWrapper, {
+          click: true
+        })
+//        设置菜品列表滚动
+        this.foodsScroll = new BScroll(this.$refs.foodsWrapper, {
+          probeType: 3,
+          click: true
+        })
+//        当菜单滚动的时候监听滚动的y轴位置
+        this.foodsScroll.on('scroll', (pos) => {
+          this.scrollY = Math.abs(Math.round(pos.y))
+        })
+      },
+      selectMenu (index, event) {
+//        点击菜单列表，执行该事件
+        if (!event._constructed) {
+          return
+        }
+//        根据点击菜单的列表索引index获取当前菜品列表，并菜单显示滚动到该位置
+        let foodList = this.$refs.foodsWrapper.getElementsByClassName('food-item')
+        let el = foodList[index]
+//          定义滚动事件，设置滚动时间
+        this.foodsScroll.scrollToElement(el, 300)
       }
     },
     computed: {
@@ -102,6 +130,11 @@
           return 'icon-shopcart-pull'
         }
       }
+    },
+    created () {
+      this.$nextTick(() => {
+        this._initScroll()
+      })
     }
   }
 </script>
@@ -153,6 +186,8 @@
   .goods-content
     flex 1
     padding-left: 1.61rem;
+    height:90%;
+    overflow: hidden;
   .food-title
     line-height .54rem
     padding-left .25rem
@@ -248,7 +283,6 @@
       align-items center
       color #ffffff
       font-size .32rem
-
   .shop-cart li:first-child
       flex 1
   .shop-cart li:last-child
