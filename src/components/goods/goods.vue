@@ -3,6 +3,7 @@
        <div class="sidebar" ref="menuWrapper">
           <ul>
             <li v-for="(item,index) in goods">
+              <!--<a href="">{{item.name}}</a>-->
               <a href="">{{item.name}}</a>
             </li>
           </ul>
@@ -22,7 +23,7 @@
                                <p><span>月售{{food.sellCount}}份</span><span>好评率{{food.rating}}%</span></p>
                                <div class="food-price">
                                    <div><span>¥ {{food.price}}</span><span v-show="food.oldPrice">¥ {{food.oldPrice}}</span></div>
-                                   <cartContrl></cartContrl>
+                                   <cartContrl :price="food.price" v-on:increment="incrementTotal(food.price)" v-on:subPrice="decrease(food.price)"></cartContrl>
                                </div>
                           </div>
                       </li>
@@ -34,19 +35,18 @@
           <ul>
             <li>
               <div>
-                 <i class="icon-shopcart"></i>
-                 <span>¥ 0</span>
+                 <i class="icon-shopcart" :class="iconCart"></i>
+                 <span>¥ {{totalPrice}}</span>
               </div>
               <p>另需配送费￥4元</p>
             </li>
-            <li class="balance">
-                 <div>
+            <li class="balance" :class="payClass">
+                 <div v-show="totalPrice<20">
                    ¥20起送
                  </div>
-                <div>
+                 <div class="toPay"  v-show="totalPrice>=20">
                   去结算
-                </div>
-
+                 </div>
             </li>
           </ul>
         </div>
@@ -68,7 +68,9 @@
         scrollY: 0,
         num: 0,
         subShow: 0,
-        foodShow: false
+        foodShow: false,
+        price: 0,
+        totalPrice: 0
       }
     },
     components: {
@@ -77,6 +79,28 @@
     methods: {
       showDetail () {
         this.foodShow = true
+      },
+      incrementTotal (price) {
+        this.totalPrice += price
+      },
+      decrease (price) {
+        this.totalPrice -= price
+      }
+    },
+    computed: {
+      payClass () {
+        if (this.totalPrice < 20) {
+          return 'nullPay'
+        } else {
+          return 'toPay'
+        }
+      },
+      iconCart () {
+        if (this.totalPrice === 0) {
+          return 'icon-shopcart-null'
+        } else {
+          return 'icon-shopcart-pull'
+        }
       }
     }
   }
@@ -232,11 +256,10 @@
       flex-direction row
       width 2.10rem
       text-align center
-      background #31363d
       justify-content center
   .icon-shopcart
       display inline-block
-      background #121820 url("icon-shopcart.png")no-repeat center
+      background #121820 no-repeat center
       width .88rem
       height .88rem
       background-size .88rem .88rem
@@ -244,6 +267,10 @@
       border:.12rem solid #121820
       border-radius 50%
       margin-top -.16rem
+  .icon-shopcart-pull
+      background-image url("icon-shopcart-pull.png")
+  .icon-shopcart-null
+      background-image url("icon-shopcart.png")
   .shop-cart li:first-child p
       color #ffffff
       font-size .20rem
@@ -255,5 +282,10 @@
   .shop-cart li:first-child div
       display flex
       align-items center
+  .shop-cart .toPay{
+    background #65b248
+  }
+  .shop-cart .nullPay
+    background #31363d
 </style>
 

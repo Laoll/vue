@@ -9,6 +9,11 @@
 <script type="text/ecmascript-6">
   export default {
     name: 'cartContrl',
+    props: {
+      price: {
+        type: Number
+      }
+    },
     data () {
       return {
         num: 0
@@ -17,9 +22,11 @@
     methods: {
       add () {
         this.num++
+        this.$emit('increment')
       },
       sub () {
         this.num--
+        this.$emit('subPrice')
       }
     }
   }
