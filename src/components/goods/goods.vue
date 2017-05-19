@@ -15,7 +15,7 @@
                   <ul class="toggle">
                       <li v-for="food in good.foods">
                           <div class="food-pic">
-                            <img :src="food.icon" alt="">
+                            <img :src="food.icon" alt="" v-on:click="showDetail">
                           </div>
                           <div class="food-content">
                               <h2>{{food.name}}</h2>
@@ -63,12 +63,6 @@
     props: {
       goods: {
         type: Object
-      },
-      gIndex: {
-        type: Number
-      },
-      fIndex: {
-        type: Number
       }
     },
     data () {
@@ -79,9 +73,7 @@
         foodShow: false,
         price: 0,
         listHeight: [],
-        totalPrice: 0,
-        gIndex: 0,
-        fIndex: 0
+        totalPrice: 0
       }
     },
     components: {
@@ -92,9 +84,8 @@
       hideDetail () {
         this.foodShow = false
       },
-      searchFood (gIndex, fIndex) {
-        this.gIndex = gIndex
-        this.fIndex = fIndex
+      showDetail () {
+        console.log('a')
         this.foodShow = true
       },
       incrementTotal (price) {
@@ -173,7 +164,7 @@
     created () {
       this.$nextTick(() => {
         this._initScroll()
-//        this._calculateHeight()
+        this._calculateHeight()
       })
     }
   }
@@ -192,7 +183,6 @@
     top 0
     right 0
     padding 3.47rem 0 .97rem 0
-    overflow-y auto
     .sidebar
       width 1.61rem
       font-size .24rem

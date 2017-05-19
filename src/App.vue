@@ -23,17 +23,6 @@
 
   export default {
     name: 'app',
-    props: {
-      seller: {
-        type: Object
-      },
-      goods: {
-        type: Object
-      },
-      ratings: {
-        type: Object
-      }
-    },
     data () {
       return {
         goods: []
@@ -79,6 +68,7 @@
     margin: 0 auto;
     font-family: "Microsoft YaHei";
     width: 100%;
+    overflow-x: hidden;
   }
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
