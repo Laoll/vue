@@ -58,7 +58,7 @@
              <p class="content">{{seller.bulletin}}</p>
            </div>
            <div class="detail-close">
-             <icon class="icon-close" @click="hideDetails"></icon>
+             <i class="icon-close" @click="hideDetails"></i>
            </div>
          </div>
 

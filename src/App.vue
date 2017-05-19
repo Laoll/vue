@@ -45,7 +45,7 @@
     mounted () {
       this.$http.get('data.json').then(function (response) {
         response = response.body
-        this.ratings = Object.assign({}, this.data, response.ratings)
+        this.ratings = Object.assign({}, this.ratings, response.ratings)
         this.seller = Object.assign({}, this.seller, response.seller)
         this.goods = Object.assign({}, this.goods, response.goods)
       })

@@ -1,8 +1,8 @@
 <template>
    <div class="cartContrl">
-     <em class="icon-sub" v-show="num>0" @click="sub"></em>
+     <em class="icon-sub" v-show="num>0" @click="sub($event)"></em>
      <span v-show="num>0">{{num}}</span>
-     <em class="icon-add" @click="add"></em>
+     <em class="icon-add" @click="add($event)"></em>
    </div>
 </template>
 
@@ -20,11 +20,17 @@
       }
     },
     methods: {
-      add () {
+      add (event) {
+        if (!event._constructed) {
+          return
+        }
         this.num++
         this.$emit('increment')
       },
-      sub () {
+      sub (event) {
+        if (!event._constructed) {
+          return
+        }
         this.num--
         this.$emit('subPrice')
       }
