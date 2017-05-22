@@ -46,8 +46,7 @@
               </div>
             </div>
             <div class="content">
-              <i class="icon-good" v-show="rating.rateType==0"></i>
-              <i class="icon-good" v-show="rating.rateType==1"></i>
+              <i :class="{'icon-good':rating.rateType===0,'icon-bad':rating.rateType===1}" ></i>
               {{rating.text}}
             </div>
           </li>
@@ -142,7 +141,7 @@
        padding  0 .23rem
        border-radius 20px
        color #fff
-  .text
+  .food .text
     padding .36rem
     >.title
       text-align left

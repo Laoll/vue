@@ -3,7 +3,6 @@
        <div class="sidebar" ref="menuWrapper">
           <ul>
             <li v-for="(item,index) in goods" class="menu-item"  @click="selectMenu(index,$event)">
-            <!--<li v-for="(item,index) in goods" class="menu-item">-->
            {{item.name}}
             </li>
           </ul>
