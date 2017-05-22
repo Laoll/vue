@@ -4,3 +4,11 @@
 .seller-msg p i{
   background:url("../img/bulletin@3x.png") no-repeat center;
 }
+.cloFlex{
+  display: flex;
+  flex-direction: column;
+}
+.rowFlex{
+  display: flex;
+  flex-direction: row;
+}
