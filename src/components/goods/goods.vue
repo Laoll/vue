@@ -15,7 +15,7 @@
                   <ul class="toggle">
                       <li v-for="food in good.foods">
                           <div class="food-pic">
-                            <img :src="food.icon" alt="" v-on:click="showDetail">
+                            <img :src="food.icon" alt="" v-on:click="showDetail(food)">
                           </div>
                           <div class="food-content">
                               <h2>{{food.name}}</h2>
@@ -50,7 +50,7 @@
             </li>
           </ul>
         </div>
-        <food v-show="foodShow" v-on:hideDetail="hideDetail"></food>
+        <food v-show="foodShow" v-on:hideDetail="hideDetail" :food="food"></food>
   </div>
 </template>
 
@@ -84,7 +84,8 @@
       hideDetail () {
         this.foodShow = false
       },
-      showDetail () {
+      showDetail (food) {
+        this.food = food
         this.foodShow = true
       },
       incrementTotal (price) {

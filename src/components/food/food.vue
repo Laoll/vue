@@ -3,12 +3,12 @@
     <!--关闭按钮-->
     <div class="close" @click="hideFood($event)">返回</div>
     <div class="food-header">
-       <img src="http://fuss10.elemecdn.com/c/6b/29e3d29b0db63d36f7c500bca31d8jpeg.jpeg?imageView2/1/w/750/h/750" alt="">
+       <img :src="food.image" alt="">
        <div class="text">
-           <h1 class="title">皮蛋瘦肉粥</h1>
-           <p><span>月售1132份</span><span>好评率100%</span></p>
+           <h1 class="title">{{food.name}}</h1>
+           <p><span>月售{{food.sellCount}}份</span><span>好评率{{food.rating}}%</span></p>
            <div class="shop-box">
-             <p><span class="price">¥24</span><span>¥28</span></p>
+             <p><span class="price">¥{{food.price}}</span><span v-show="food.oldPrice">¥{{food.oldPrice}}</span></p>
               <div class="toCart">加入购物车</div>
            </div>
        </div>
@@ -18,7 +18,7 @@
       <div class="text">
           <h2 class="title">商品介绍</h2>
           <div class="food-intro">
-            一碗皮蛋瘦肉粥，总是我到粥店时的不二之选。香浓软滑，饱腹暖心，皮蛋的Q弹与瘦肉的滑嫩伴着粥香溢于满口，让人喝这样的一碗粥也觉得心满意足。
+            {{food.info}}
           </div>
       </div>
     </div>
@@ -37,28 +37,18 @@
       </div>
       <div class="rating-detail">
         <ul >
-          <li>
+          <li v-for="rating in food.ratings">
             <div class="rating-header">
-              <p class="time">2016-07-07  12:34</p>
+              <p class="time">{{rating.rateTime}}</p>
               <div class="user-info">
-                <span>3*******2</span>
-                <img src="http://static.galileo.xiaojukeji.com/static/tms/default_header.png" alt="">
+                <span>{{rating.username}}</span>
+                <img :src="rating.avatar" alt="">
               </div>
             </div>
             <div class="content">
-              <i class="icon-good"></i>味道不错，就是有点儿咸，有待进一步优化
-            </div>
-          </li>
-          <li>
-            <div class="rating-header">
-              <p class="time">2016-07-07  12:34</p>
-              <div class="user-info">
-                <span>3*******2</span>
-                <img src="http://static.galileo.xiaojukeji.com/static/tms/default_header.png" alt="">
-              </div>
-            </div>
-            <div class="content">
-              <i class="icon-bad"></i>味道不错，就是有点儿咸，有待进一步优化
+              <i class="icon-good" v-show="rating.rateType==0"></i>
+              <i class="icon-good" v-show="rating.rateType==1"></i>
+              {{rating.text}}
             </div>
           </li>
         </ul>
@@ -74,6 +64,9 @@
     props: {
       show: {
         type: Boolean
+      },
+      food: {
+        type: Object
       }
     },
     data () {
