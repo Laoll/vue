@@ -50,7 +50,7 @@
             </li>
           </ul>
         </div>
-        <food v-show="foodShow"></food>
+        <food v-show="foodShow" :show="foodShow"></food>
   </div>
 </template>
 
@@ -85,7 +85,6 @@
         this.foodShow = false
       },
       showDetail () {
-        console.log('a')
         this.foodShow = true
       },
       incrementTotal (price) {
@@ -123,6 +122,9 @@
         let el = foodList[index]
 //          定义滚动事件，设置滚动时间
         this.foodsScroll.scrollToElement(el, 300)
+        this.$nextTick(() => {
+          this.scroll.refresh()
+        })
       },
       _calculateHeight () {
         let foodList = this.$refs.foodsWrapper.getElementsByClassName('food-item')
@@ -163,8 +165,12 @@
     },
     created () {
       this.$nextTick(() => {
-        this._initScroll()
-        this._calculateHeight()
+        if (!this.scroll) {
+          this._initScroll()
+          this._calculateHeight()
+        } else {
+          this.scroll.refresh()
+        }
       })
     }
   }

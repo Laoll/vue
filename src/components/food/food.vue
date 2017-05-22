@@ -1,5 +1,7 @@
 <template>
-  <div class="food">
+  <div class="food" v-show="show">
+    <!--关闭按钮-->
+    <div class="close" @click="hideFood">返回</div>
     <div class="food-header">
        <img src="http://fuss10.elemecdn.com/c/6b/29e3d29b0db63d36f7c500bca31d8jpeg.jpeg?imageView2/1/w/750/h/750" alt="">
        <div class="text">
@@ -30,7 +32,7 @@
             <li>吐槽 <span>10</span></li>
           </ul>
           <div class="change-rating">
-            <i></i> 只看有内容的评价
+            <i :class="checkType" @click="filterCheck"></i> 只看有内容的评价
           </div>
       </div>
       <div class="rating-detail">
@@ -47,6 +49,18 @@
               <i class="icon-good"></i>味道不错，就是有点儿咸，有待进一步优化
             </div>
           </li>
+          <li>
+            <div class="rating-header">
+              <p class="time">2016-07-07  12:34</p>
+              <div class="user-info">
+                <span>3*******2</span>
+                <img src="http://static.galileo.xiaojukeji.com/static/tms/default_header.png" alt="">
+              </div>
+            </div>
+            <div class="content">
+              <i class="icon-bad"></i>味道不错，就是有点儿咸，有待进一步优化
+            </div>
+          </li>
         </ul>
       </div>
     </div>
@@ -57,12 +71,32 @@
   import split from '../split/split'
   export default {
     name: 'food',
+    props: {
+      show: {
+        type: Boolean
+      }
+    },
     data () {
       return {
+        checkType: 'icon-unCheck',
+        show: true
       }
     },
     components: {
       split
+    },
+    methods: {
+      filterCheck () {
+        let type = this.checkType
+        if (type === 'icon-unCheck') {
+          this.checkType = 'icon-checked'
+        } else {
+          this.checkType = 'icon-unCheck'
+        }
+      },
+      hideFood () {
+        this.show = false
+      }
     }
   }
 </script>
@@ -145,6 +179,16 @@
       border-top 1px solid rgba(18,24,32,0.1)
       padding .34rem 0
       text-align left
+      i
+       display inline-block
+       width .40rem
+       height .40rem
+       background url("icon-unCheck.png")no-repeat center;
+       background-size .40rem .40rem;
+       vertical-align middle
+       margin-right .12rem
+       &.icon-checked
+        background-image url("icon-checked.png")
     .rating-detail
       border-top 1px solid rgba(18,24,32,.1)
       margin-top -.34rem
@@ -180,4 +224,12 @@
           &.icon-good
              background-image url("icon-good.png")
 
+  .close
+     position absolute
+     left .24rem
+     top .24rem
+     background #000
+     color #fff
+     padding .1rem .2rem
+     border-radius .5rem
 </style>
