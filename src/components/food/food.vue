@@ -1,7 +1,7 @@
 <template>
-  <div class="food" v-show="show">
+  <div class="food">
     <!--关闭按钮-->
-    <div class="close" @click="hideFood">返回</div>
+    <div class="close" @click="hideFood($event)">返回</div>
     <div class="food-header">
        <img src="http://fuss10.elemecdn.com/c/6b/29e3d29b0db63d36f7c500bca31d8jpeg.jpeg?imageView2/1/w/750/h/750" alt="">
        <div class="text">
@@ -78,8 +78,7 @@
     },
     data () {
       return {
-        checkType: 'icon-unCheck',
-        show: true
+        checkType: 'icon-unCheck'
       }
     },
     components: {
@@ -95,7 +94,7 @@
         }
       },
       hideFood () {
-        this.show = false
+        this.$emit('hideDetail')
       }
     }
   }

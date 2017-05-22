@@ -50,7 +50,7 @@
             </li>
           </ul>
         </div>
-        <food v-show="foodShow" :show="foodShow"></food>
+        <food v-show="foodShow" v-on:hideDetail="hideDetail"></food>
   </div>
 </template>
 
