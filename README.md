@@ -5,12 +5,14 @@
 ## Build Setup
 
 ``` bash
-# install dependencies
+#安装依赖
 npm install
 
-# serve with hot reload at localhost:8080
+# 运行服务器 localhost:9090
 npm run dev
 
 
 
-For detailed explanation on how things work, checkout the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+
+> 使用技术
+
