@@ -166,12 +166,9 @@
     },
     created () {
       this.$nextTick(() => {
-        if (!this.scroll) {
-          this._initScroll()
-          this._calculateHeight()
-        } else {
-          this.scroll.refresh()
-        }
+        this._initScroll()
+        this._calculateHeight()
+        this.scroll.refresh()
       })
     }
   }

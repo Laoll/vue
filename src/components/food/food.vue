@@ -39,7 +39,7 @@
         <ul >
           <li v-for="rating in food.ratings">
             <div class="rating-header">
-              <p class="time">{{rating.rateTime}}</p>
+              <p class="time">{{rating.rateTime | formatDate}}</p>
               <div class="user-info">
                 <span>{{rating.username}}</span>
                 <img :src="rating.avatar" alt="">
@@ -88,6 +88,13 @@
       },
       hideFood () {
         this.$emit('hideDetail')
+      }
+    },
+    filters: {
+      formatDate (time) {
+        let date = new Date(time)
+        let commonTime = date.toLocaleString()
+        return commonTime
       }
     }
   }
