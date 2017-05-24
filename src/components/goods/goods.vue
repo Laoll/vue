@@ -40,8 +40,11 @@
               <p>另需配送费￥4元</p>
             </li>
             <li class="balance" :class="payClass">
-                 <div v-show="totalPrice<20">
+                 <div v-show="totalPrice==0">
                    ¥20起送
+                 </div>
+                 <div v-show="totalPrice>0&&totalPrice<20">
+                   还差{{20-totalPrice}}元起送
                  </div>
                  <div class="toPay"  v-show="totalPrice>=20">
                   去结算
@@ -59,11 +62,7 @@
   import food from '../food/food'
   export default {
     name: 'goods',
-    props: {
-      goods: {
-        type: Object
-      }
-    },
+    props: ['goods'],
     data () {
       return {
         scrollY: 0,
@@ -72,7 +71,8 @@
         foodShow: false,
         price: 0,
         listHeight: [],
-        totalPrice: 0
+        totalPrice: 0,
+        food: []
       }
     },
     components: {
@@ -167,7 +167,6 @@
       this.$nextTick(() => {
         this._initScroll()
         this._calculateHeight()
-        this.scroll.refresh()
       })
     }
   }

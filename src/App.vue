@@ -25,7 +25,9 @@
     name: 'app',
     data () {
       return {
-        goods: []
+        goods: [],
+        ratings: [],
+        seller: []
       }
     },
     components: {

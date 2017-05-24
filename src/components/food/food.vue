@@ -60,14 +60,7 @@
   import split from '../split/split'
   export default {
     name: 'food',
-    props: {
-      show: {
-        type: Boolean
-      },
-      food: {
-        type: Object
-      }
-    },
+    props: ['food'],
     data () {
       return {
         checkType: 'icon-unCheck'
