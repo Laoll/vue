@@ -34,7 +34,7 @@
       'v-header': header
     },
     mounted () {
-      this.$http.get('data.json').then(function (response) {
+      this.$http.get('/static/data/data.json').then(function (response) {
         response = response.body
         this.ratings = Object.assign({}, this.ratings, response.ratings)
         this.seller = Object.assign({}, this.seller, response.seller)

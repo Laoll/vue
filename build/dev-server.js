@@ -8,6 +8,8 @@ if (!process.env.NODE_ENV) {
 var opn = require('opn')
 var path = require('path')
 var express = require('express')
+
+
 var webpack = require('webpack')
 var proxyMiddleware = require('http-proxy-middleware')
 var webpackConfig = process.env.NODE_ENV === 'testing'
@@ -24,6 +26,33 @@ var proxyTable = config.dev.proxyTable
 
 var app = express()
 var compiler = webpack(webpackConfig)
+
+
+var appData = require('../static/data/data.json');
+var seller = appData.seller;
+var goods = appData.goods;
+var ratings = appData.ratings;
+var apiRoutes = express.Router();
+
+apiRoutes.get('/seller',function(req,res){
+  res.json({
+    errno: 0,
+    data:seller
+  })
+})
+apiRoutes.get('/goods',function(req,res){
+  res.json({
+    errno: 0,
+    data:goods
+  })
+})
+apiRoutes.get('/ratings',function(req,res){
+  res.json({
+    errno: 0,
+    data:ratings
+  })
+})
+app.use('/api',apiRoutes)
 
 var devMiddleware = require('webpack-dev-middleware')(compiler, {
   publicPath: webpackConfig.output.publicPath,
