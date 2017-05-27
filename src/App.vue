@@ -1,4 +1,4 @@
-<template>
+<template >
   <div id="app">
     <v-header :seller="seller"></v-header>
     <div class="tab border-bottom-1px">
@@ -31,13 +31,13 @@
       }
     },
     components: {
-      'v-header': header
+      'v-header':  header
     },
     mounted () {
-      this.$http.get('/static/data/data.json').then(function (response) {
+      this.$http.get('./data.json').then(function (response) {
         response = response.body
         this.ratings = Object.assign({}, this.ratings, response.ratings)
-        this.seller = Object.assign({}, this.seller, response.seller)
+           this.seller = Object.assign({}, this.seller, response.seller)
         this.goods = Object.assign({}, this.goods, response.goods)
       })
     }
