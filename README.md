@@ -2,6 +2,8 @@
 
 > A Vue.js project
 
+地址：http://119.29.235.113/dist/
+
 ## Build Setup
 
 ``` bash
